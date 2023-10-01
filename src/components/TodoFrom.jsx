@@ -21,7 +21,7 @@ function TodoFrom({ accessToken, id, refreshTodoList }) {
     }
   };
   return (
-    <div className="flex flex-col sm:w-[40%]  w-full justify-center space-y-5 m-2 bg-slate-200 p-4 border rounded shadow-lg  ">
+    <div className="flex flex-col lg:w-[40%] w-[80%] justify-center space-y-5 m-2 bg-slate-200 p-4 border rounded shadow-lg  ">
       <h2 className="font-bold text-center">Add Todo</h2>
       <input
         type="text"

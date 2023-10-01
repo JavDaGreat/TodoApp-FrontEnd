@@ -67,4 +67,24 @@ const editTodo = async (id, title, description, todoId, accessToken) => {
   const data = await resp.json();
   return data;
 };
-export { AddTodo, GetAllTodo, deleteTodo, editTodo, login, signUp };
+
+const forgetPassword = async (email) => {
+  const resp = await fetch("http://localhost:3500/forget", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+  const data = await resp.json();
+  return data;
+};
+export {
+  AddTodo,
+  GetAllTodo,
+  deleteTodo,
+  editTodo,
+  login,
+  signUp,
+  forgetPassword,
+};

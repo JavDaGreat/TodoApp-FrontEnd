@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, signUp } from "../components/Functions";
+import { login, signUp, forgetPassword } from "../components/Functions";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
 function Authentication() {
   const [needAccount, setNeedAccount] = useState(false);
@@ -8,8 +10,9 @@ function Authentication() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState("");
-
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [forgetEmail, setForgetEmail] = useState("");
   const Navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -31,20 +34,40 @@ function Authentication() {
     setSuccess("");
     setEmail("");
   };
+  console.log(message, success);
 
   const handleSignUp = async () => {
     setMessage("");
     setSuccess("");
-    const data = await signUp(username, password, email);
-    if (data.username) {
-      setEmail("");
-      setPassword("");
-      setUsername("");
-      setSuccess(
-        `User : ${data.username} has been created click below to login`
-      );
+    if (!username || !password || !email) {
+      setMessage("You need to fil every section to create a account");
     } else {
-      setMessage("User already exist");
+      const data = await signUp(username, password, email);
+      console.log(data);
+      if (data.username) {
+        setEmail("");
+        setPassword("");
+        setUsername("");
+        setSuccess(
+          `User : ${data.username} has been created click below to login`
+        );
+      } else if (data.message) {
+        setMessage("User already exist");
+      } else {
+        setMessage("ERROR TRY LATER");
+      }
+    }
+  };
+
+  const handleForgetPasswordSendEmail = async () => {
+    setMessage("");
+    setSuccess("");
+    const data = await forgetPassword(forgetEmail);
+    console.log(data);
+    if (data.message) {
+      setSuccess("Close this window and check your email");
+    } else {
+      setMessage("User dose not exist");
     }
   };
 
@@ -60,6 +83,7 @@ function Authentication() {
               placeholder=" Username"
               className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none p-2"
               onChange={(e) => setUsername(e.target.value)}
+              value={username}
             />
           </div>
 
@@ -69,6 +93,7 @@ function Authentication() {
               placeholder="Password"
               className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </div>
 
@@ -84,6 +109,9 @@ function Authentication() {
           <a
             href="#"
             className="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-400"
+            onClick={() => {
+              setOpen(true), setSuccess(""), setSuccess("");
+            }}
           >
             FORGOT PASSWORD?
           </a>
@@ -109,6 +137,7 @@ function Authentication() {
               placeholder=" Username"
               className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
               onChange={(e) => setUsername(e.target.value)}
+              value={username}
             />
           </div>
           <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
@@ -117,6 +146,7 @@ function Authentication() {
               placeholder="Password"
               className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </div>
 
@@ -126,6 +156,7 @@ function Authentication() {
               placeholder="Email"
               className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
 
@@ -150,6 +181,37 @@ function Authentication() {
           </p>
         </section>
       )}
+
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false), setMessage(""), setSuccess("");
+        }}
+        center
+      >
+        <div className="flex flex-col gap-2 m-2 p-2 ">
+          <p>To reset your Password you need to entre your Email down bleow</p>
+          <input
+            type="text"
+            placeholder=" Email"
+            className=" m-2 p-1 border border-gray-300"
+            id="Email"
+            onChange={(e) => setForgetEmail(e.target.value)}
+            value={forgetEmail}
+          />
+
+          <button
+            className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br px-8 py-2  font-bold m-auto rounded"
+            onClick={handleForgetPasswordSendEmail}
+          >
+            Reset Password
+          </button>
+          <div>
+            <p className="text-red-600 text-sm">{message}</p>
+            <p className="text-green-600 text-sm">{success}</p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
