@@ -2,6 +2,7 @@ import { useState } from "react";
 import Authentication from "./Pages/Authentication";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Todo from "./Pages/Todo";
+import Reset from "./Pages/Reset";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: "/todo",
     element: <Todo />,
+  },
+  {
+    path: "/reset",
+    element: <Reset />,
   },
 ]);
 

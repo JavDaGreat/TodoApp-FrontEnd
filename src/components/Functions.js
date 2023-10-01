@@ -79,6 +79,19 @@ const forgetPassword = async (email) => {
   const data = await resp.json();
   return data;
 };
+
+const resetPassword = async (token, pwd) => {
+  console.log(token, pwd);
+  const resp = await fetch("http://localhost:3500/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, pwd }),
+  });
+  const data = await resp.json();
+  return data;
+};
 export {
   AddTodo,
   GetAllTodo,
@@ -87,4 +100,5 @@ export {
   login,
   signUp,
   forgetPassword,
+  resetPassword,
 };
