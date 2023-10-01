@@ -190,7 +190,7 @@ function Authentication() {
         center
       >
         <div className="flex flex-col gap-2 m-2 p-2 ">
-          <p>To reset your Password you need to entre your Email down bleow</p>
+          <p>To reset your Password you need to entre your Email </p>
           <input
             type="text"
             placeholder=" Email"
