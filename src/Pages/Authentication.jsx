@@ -34,7 +34,6 @@ function Authentication() {
     setSuccess("");
     setEmail("");
   };
-  console.log(message, success);
 
   const handleSignUp = async () => {
     setMessage("");
@@ -63,7 +62,6 @@ function Authentication() {
     setMessage("");
     setSuccess("");
     const data = await forgetPassword(forgetEmail);
-    console.log(data);
     if (data.message) {
       setSuccess("Close this window and check your email");
     } else {
@@ -72,7 +70,15 @@ function Authentication() {
   };
 
   return (
-    <div className="flex h-screen w-full justify-center items-center">
+    <div className="flex flex-col h-screen w-full justify-evenly items-center   ">
+      <header>
+        <h1 className="text-3xl p-1 m-1 font-bold text-center">
+          Welcome to TaskHub
+        </h1>
+        <p className="text-md p-2 mb-4 text-center text-gray-500">
+          Your Ultimate Task Management Solution
+        </p>
+      </header>
       {!needAccount ? (
         <section className="flex w-[30rem] flex-col space-y-10">
           <div className="text-center text-4xl font-medium">Log In</div>

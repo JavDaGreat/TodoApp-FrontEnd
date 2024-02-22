@@ -39,7 +39,7 @@ function TodoFrom({ accessToken, id, refreshTodoList }) {
       ></textarea>
       <button
         onClick={handleAddTodo}
-        className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br px-8 py-2  font-bold m-auto rounded"
+        className=" text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br px-8 py-2  font-bold m-auto rounded"
       >
         Add
       </button>

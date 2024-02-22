@@ -69,7 +69,6 @@ function TodoList({ accessToken, id, refreshTodoList }) {
     );
   });
 
-  console.log(todos);
   return (
     <div className="w-full m-4 p-2 flex flex-wrap ">
       <ul className="flex gap-4 flex-wrap ">{content}</ul>

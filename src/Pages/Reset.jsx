@@ -10,7 +10,7 @@ function Reset() {
   const handleResetPassword = async () => {
     setMessage("");
     const data = await resetPassword(token, password);
-    console.log(data);
+
     if (data.message) {
       setShowHomeButton(true);
       setMessage(data.message);

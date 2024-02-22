@@ -1,7 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.customModal {
-  background: #b2dbbf;
-  width: 500px;
-}
